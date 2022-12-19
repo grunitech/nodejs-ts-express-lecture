@@ -1,0 +1,19 @@
+{
+  "name": "nodejs-ts-express-lecture",
+  "version": "1.0.0",
+  "description": "Example project with ts and express",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@github.com/grunitech/nodejs-ts-express-lecture.git"
+  },
+  "author": "Grunitch Students",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/grunitech/nodejs-ts-express-lecture/issues"
+  },
+  "homepage": "https://github.com/grunitech/nodejs-ts-express-lecture#readme"
+}
