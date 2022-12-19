@@ -13,6 +13,18 @@ app.get('/about', (req: Request, res: Response) => {
     res.sendFile(path);
 });
 
+const MESSAGES = [
+    'Good Morning',
+    'Drop dead',
+    'How are you?',
+    'Go to sleep, you\'re tired',
+    'Have a lovely day'
+];
+
+app.get('/random', (req: Request, res: Response) => {
+    // on calling "http://localhost:3000/random" send a random message
+});
+
 app.listen(3000, () => {
     console.log('Express is running at port 3000');
 });
