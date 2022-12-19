@@ -17,3 +17,14 @@
 
 * `baseUrl` compile all TypeScript files under this directory
 * `esModuleInterop` make sure we can import CommonJS as ESM in TypeScript
+
+
+
+# Next
+
+1. Endpoint (/about) -> return JSON with student who write this app details
+2. Endpoint (/search/:term) -> Count the characters in the term and response it
+
+`http://localhost:3000/search/sdlkghjsdkjfh+sjsdkjfsd+,ghsdjgfasd`
+
+40

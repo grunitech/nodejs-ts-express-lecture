@@ -17,6 +17,7 @@ app.get('/', (req: Request, res: Response) => {
 });
 
 app.get('/about', (req: Request, res: Response) => {
+    // todo replace the dirname with ESM version
     const path = __dirname + '/about.html';
     res.sendFile(path);
 });
