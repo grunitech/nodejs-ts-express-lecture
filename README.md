@@ -1,5 +1,10 @@
 # NodeJS/TypeScript/Express
 
+## Terms
+
+* Web Server - any application listen and accept HTTP request and send back HTTP response.
+* Route - part of the URL point to specific end-point function
+
 ## Tools
 
 * `ts-node` a tool to run TypeScript in NodeJS. 
