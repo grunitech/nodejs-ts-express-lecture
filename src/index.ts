@@ -8,10 +8,7 @@ app.get('/', (req: Request, res: Response) => {
 
 // todo this method should send an HTML file to the user
 app.get('/about', (req: Request, res: Response) => {
-    res
-        .header('content-type', 'text/plain')
-        .status(201)
-        .send(JSON.stringify({createdBy: 'Grunitech'}));
+    // todo implement me
 });
 
 app.listen(3000, () => {
