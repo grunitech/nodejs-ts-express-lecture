@@ -21,9 +21,16 @@ const MESSAGES = [
     'Have a lovely day'
 ];
 
+function getRandomMessage(msgs: string[]) {
+    const idx = Math.floor(Math.random() * msgs.length);
+    return msgs[idx];
+}
+
 app.get('/random', (req: Request, res: Response) => {
-    // on calling "http://localhost:3000/random" send a random message
-    // the response should be "text/plain" and status code 200
+    res
+        .status(200)
+        .header('content-type', 'text/plain')
+        .send(getRandomMessage(MESSAGES));
 });
 
 app.listen(3000, () => {
