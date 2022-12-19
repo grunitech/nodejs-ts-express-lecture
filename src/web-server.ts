@@ -1,3 +1,4 @@
+// don't use in production - just an example
 import { createServer, IncomingMessage, ServerResponse } from 'node:http';
 
 function requestHandler(req: IncomingMessage, res: ServerResponse) {

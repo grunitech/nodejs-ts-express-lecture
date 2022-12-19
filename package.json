@@ -5,6 +5,7 @@
   "main": "index.js",
   "scripts": {
     "dev": "tsnd --respawn src/index.ts",
+    "build": "tsc",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
@@ -18,6 +19,7 @@
   },
   "homepage": "https://github.com/grunitech/nodejs-ts-express-lecture#readme",
   "devDependencies": {
+    "@types/body-parser": "^1.19.2",
     "@types/express": "^4.17.15",
     "@types/node": "^18.11.17",
     "ts-node": "^10.9.1",
@@ -25,6 +27,7 @@
     "typescript": "^4.9.4"
   },
   "dependencies": {
+    "body-parser": "^1.20.1",
     "express": "^4.18.2"
   }
 }
