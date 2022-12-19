@@ -4,7 +4,7 @@
   "description": "Example project with ts and express",
   "main": "index.js",
   "scripts": {
-    "dev": "tsc",
+    "dev": "ts-node src/index.ts",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {

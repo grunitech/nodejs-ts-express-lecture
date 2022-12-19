@@ -1,14 +1,16 @@
 import express, { Request, Response, NextFunction } from 'express';
 
+// creating an express application
 const app = express();
+
 
 app.get('/', (req: Request, res: Response) => {
     res.status(200).send('url: ' + req.url);
 });
 
-// todo this method should send an HTML file to the user
 app.get('/about', (req: Request, res: Response) => {
-    // todo implement me
+    const path = __dirname + '/about.html';
+    res.sendFile(path);
 });
 
 app.listen(3000, () => {
