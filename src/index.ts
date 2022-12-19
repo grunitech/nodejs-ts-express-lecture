@@ -1,4 +1,5 @@
 import express, { Request, Response, NextFunction } from 'express';
+import { handleForm } from './handle-form';
 
 // creating an express application
 const app = express();
@@ -32,6 +33,8 @@ app.get('/random', (req: Request, res: Response) => {
         .header('content-type', 'text/plain')
         .send(getRandomMessage(MESSAGES));
 });
+
+app.get('/handle-form', handleForm);
 
 app.listen(3000, () => {
     console.log('Express is running at port 3000');
