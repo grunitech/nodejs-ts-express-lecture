@@ -23,6 +23,7 @@ const MESSAGES = [
 
 app.get('/random', (req: Request, res: Response) => {
     // on calling "http://localhost:3000/random" send a random message
+    // the response should be "text/plain" and status code 200
 });
 
 app.listen(3000, () => {
