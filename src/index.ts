@@ -46,10 +46,12 @@ app.post('/handle-form', handleForm);
 /**
  * All requests that start with "/greet" and have some name after it
  * /greet -> no
- * /greet/ -> no/yes
- * /greet/grut -> yes
+ * /greet/ran -> yes
+ * /greet/run/12 -> yes
+ * /greet/run/12/any -> no
  */
-app.get('/greet/:name/:age', greetMe);
+app.get('/greet/:name/:age?', greetMe);
+
 
 
 app.listen(3000, () => {
