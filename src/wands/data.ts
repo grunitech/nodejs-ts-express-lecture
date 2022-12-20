@@ -6,6 +6,10 @@ export interface Wand {
     flexibility: string;
 }
 
+export const saveWand = (wand: Wand, idx: number) => {
+    return wand;
+}
+
 export const wandsList = (): Wand[] => [
     {
         owner: "Albus Dumbledore",
