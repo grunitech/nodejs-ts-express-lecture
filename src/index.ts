@@ -2,12 +2,16 @@ import express, { Request, Response } from 'express';
 import bodyParser from 'body-parser';
 import { handleForm } from './handle-form';
 import { greetMe } from './greet-me';
+import users from './users';
 
 // creating an express application
 const app = express();
 
 // the post/put request come with data in form/url encoding
 app.use(bodyParser.urlencoded());
+
+// add router to our application
+app.use(users);
 
 // the post/put request come with data in json encoding
 // app.use(bodyParser.json());
@@ -52,7 +56,6 @@ app.post('/handle-form', handleForm);
  * /greet/run/12/any -> no
  */
 app.get('/greet/:name/:age?', greetMe);
-
 
 
 app.listen(3000, () => {
