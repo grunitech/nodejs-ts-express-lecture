@@ -3,6 +3,7 @@ import bodyParser from 'body-parser';
 import { handleForm } from './handle-form';
 import { greetMe } from './greet-me';
 import users from './users';
+import wands from './wands';
 
 // creating an express application
 const app = express();
@@ -12,6 +13,7 @@ app.use(bodyParser.urlencoded());
 
 // add router to our application
 app.use(users);
+app.use(wands);
 
 // the post/put request come with data in json encoding
 // app.use(bodyParser.json());
