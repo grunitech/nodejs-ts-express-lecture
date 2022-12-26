@@ -1,17 +1,23 @@
 import express, { Request, Response } from 'express';
 import bodyParser from 'body-parser';
+import cors from 'cors';
 import { handleForm } from './handle-form';
 import { greetMe } from './greet-me';
 import users from './users';
+import wands from './wands';
+import loggerMiddleware from './logger-middleware';
 
 // creating an express application
 const app = express();
 
 // the post/put request come with data in form/url encoding
 app.use(bodyParser.urlencoded());
+app.use(cors());
+app.use(loggerMiddleware);
 
 // add router to our application
 app.use(users);
+app.use('/sharvitim', wands);
 
 // the post/put request come with data in json encoding
 // app.use(bodyParser.json());
@@ -20,7 +26,7 @@ app.get('/', (req: Request, res: Response) => {
     res.status(200).send('url: ' + req.url);
 });
 
-app.get('/about', (req: Request, res: Response) => {
+app.get('/about', loggerMiddleware, (req: Request, res: Response) => {
     // todo replace the dirname with ESM version
     const path = __dirname + '/about.html';
     res.sendFile(path);
@@ -57,6 +63,10 @@ app.post('/handle-form', handleForm);
  */
 app.get('/greet/:name/:age?', greetMe);
 
+app.all('*', (req, res) => {
+    // keep this url in the  database for later investigation
+    res.send('404!!!');
+})
 
 app.listen(3000, () => {
     console.log('Express is running at port 3000');
