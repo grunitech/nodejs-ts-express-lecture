@@ -5,7 +5,26 @@ describe('test the foo() function', () => {
 
     describe('those are dummy tests', () => {
         it('this is dummy test', () => {
+        });
+    });
 
+    describe('typing', () => {
+        class Typer {
+            foo = 1;
+        }
+
+        it('should check typeof', () => {
+            expect(typeof 'str').to.equal('string');
+            expect(typeof 1).to.equal('number');
+        });
+
+        it('should check instance of', () => {
+            const a = new Typer();
+            const b = {foo: 1};
+
+            expect(a.foo).to.equal(b.foo);
+            expect(a instanceof Typer).to.be.true;
+            expect(b instanceof Typer).to.be.false;
         });
     });
 
@@ -76,7 +95,9 @@ describe('Async testing', () => {
 
     it('should throw an error for negative number', (done) => {
         getList(-1)
-            .then(() => done('not suppose to get here'))
+            .then(() => {
+                done('not suppose to get here');
+            })
             .catch((e) => {
                 expect(e.message).to.equals('i must be greater than zero');
                 done();
