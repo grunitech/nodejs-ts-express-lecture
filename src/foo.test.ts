@@ -1,5 +1,5 @@
 import { expect } from 'chai';
-import { foo, bar } from './foo';
+import { foo, bar, getList } from './foo';
 
 describe('test the foo() function', () => {
 
@@ -37,9 +37,69 @@ describe('test the foo() function', () => {
             expect(ret).to.equal(2);
         });
 
-        it('should throw an error for input 1, 0', () => {
-            // bar(1, 0);
+        it('should throw an error for input 1, 0 using try/catch', () => {
+            try {
+                bar(1, 0);
+                expect.fail('you are not suppose to get here');
+            } catch (e) {
+                expect(e.message).to.equal('zero');
+            }
         });
+
+        it('should throw an error for input 1, 0 using throws', () => {
+            const f = () => bar(1, 0);
+            expect(f).to.throws('zero');
+        });
+    });
+});
+
+describe('Async testing', () => {
+    // return the promise
+    it('should return list with length 3', () => {
+        return getList(3).then(ret => {
+            expect(ret).to.be.an('array');
+            expect(ret).to.not.be.a('string');
+            expect(ret).to.have.lengthOf(3);
+            expect(ret[0]).to.equals(0);
+            expect(ret[1]).to.equals(1);
+            expect(ret[2]).to.equals(2);
+        });
+    });
+
+    // call done() to finish the test
+    it('should return empty list', (done) => {
+        getList(0).then(ret => {
+            expect(ret).to.have.lengthOf(0);
+            done();
+        });
+    });
+
+    it('should throw an error for negative number', (done) => {
+        getList(-1)
+            .then(() => done('not suppose to get here'))
+            .catch((e) => {
+                expect(e.message).to.equals('i must be greater than zero');
+                done();
+            });
+    });
+
+    // using async/await
+    it('should return list', async () => {
+        const ret = await getList(0);
+        expect(ret.length).to.equals(0);
+        expect(ret).to.have.lengthOf(0);
+    });
+
+
+    it('should throw error for float number', async () => {
+        try {
+            await getList(1.2);
+            expect.fail('not suppose to get here');
+        } catch (e) {
+            expect(e).to.have.property('message');
+            expect(e.message).to.be.not.empty;
+            expect(e.message).to.equals('i must be integer');
+        }
     });
 });
 
