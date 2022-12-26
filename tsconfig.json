@@ -4,5 +4,8 @@
     "baseUrl": "./src",
     "allowSyntheticDefaultImports": true,
     "esModuleInterop": true
-  }
+  },
+  "exclude": [
+    "**/*.test.ts"
+  ]
 }

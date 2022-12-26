@@ -6,7 +6,8 @@
   "scripts": {
     "dev": "tsnd --respawn src/index.ts",
     "build": "tsc",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "env TS_NODE_COMPILER_OPTIONS='{\\\"module\\\": \\\"commonjs\\\" }' echo 'KLUM'",
+    "test": "mocha -r ts-node/register src/*.test.ts"
   },
   "repository": {
     "type": "git",
@@ -20,9 +21,13 @@
   "homepage": "https://github.com/grunitech/nodejs-ts-express-lecture#readme",
   "devDependencies": {
     "@types/body-parser": "^1.19.2",
+    "@types/chai": "^4.3.4",
     "@types/cors": "^2.8.13",
     "@types/express": "^4.17.15",
+    "@types/mocha": "^10.0.1",
     "@types/node": "^18.11.17",
+    "chai": "^4.3.7",
+    "mocha": "^10.2.0",
     "ts-node": "^10.9.1",
     "ts-node-dev": "^2.0.0",
     "typescript": "^4.9.4"
