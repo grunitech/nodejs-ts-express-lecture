@@ -6,7 +6,7 @@
   "scripts": {
     "dev": "tsnd --respawn src/index.ts",
     "build": "tsc",
-    "start": "env TS_NODE_COMPILER_OPTIONS='{\\\"module\\\": \\\"commonjs\\\" }' echo 'KLUM'",
+    "start": "echo 'KLUM'",
     "test": "mocha -r ts-node/register src/*.test.ts"
   },
   "repository": {
