@@ -1,20 +1,9 @@
-import express from 'express';
-import cors from 'cors';
-import { users } from './users';
+import app from './app';
 
-const app = express();
-
-app.use(cors());
-
-app.use('/user', users);
 
 app.listen(3003, '0.0.0.0', () => {
-    console.log('server is running');
-})
-
-
-
-
+    console.log('Server is running');
+});
 
 
 

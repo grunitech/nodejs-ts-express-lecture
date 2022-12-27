@@ -23,11 +23,17 @@ users.get('/:id?', (req: Request, res: Response) => {
     }
 })
 
-// save a new user
-users.post('/', bodyParser.json(), (req: Request, res: Response) => {
+export function saveUser(req: Request, res: Response) {
     const user = req.body;
-    res.send(user);
-});
+    if (!user.name || !user.email) {
+        res.status(400).send({message: 'the input is invalid'});
+    } else {
+        res.send(user);
+    }
+}
+
+// save a new user
+users.post('/', bodyParser.json(), saveUser);
 
 // update a user
 users.put('/', () => {
