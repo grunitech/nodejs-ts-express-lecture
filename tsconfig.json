@@ -2,11 +2,11 @@
   "compilerOptions": {
     "outDir": "./dist",
     "baseUrl": "./src",
+    "moduleResolution": "node",
     "allowSyntheticDefaultImports": true,
     "esModuleInterop": true,
     "target": "ES2019"
   },
   "exclude": [
-    "**/*.test.ts"
   ]
 }
