@@ -54,5 +54,7 @@ describe('user feature', () => {
                 .send({})
                 .expect(400);
         });
-    })
+    });
+
+    // todo complete tests for "put" and "delete"
 });

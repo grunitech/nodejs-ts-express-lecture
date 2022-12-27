@@ -36,14 +36,20 @@ export function saveUser(req: Request, res: Response) {
 users.post('/', bodyParser.json(), saveUser);
 
 // update a user
-users.put('/', () => {
-
+users.put('/', bodyParser.json(), (req: Request, res: Response) => {
+    const user = req.body;
+    if (!user.name || !user.email) {
+        res.status(400).send({message: 'the input is invalid'});
+    } else {
+        res.send({userUpdated: true});
+    }
 });
 
 
 // remove a user
-users.delete('/:id', () => {
-
+users.delete('/:id', (req: Request, res: Response) => {
+    // todo replace xxx with user id
+    res.send({message: `user xxx deleted`});
 });
 
 
