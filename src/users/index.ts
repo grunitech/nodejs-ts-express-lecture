@@ -7,8 +7,22 @@ export interface User {
     name: string;
 }
 
+function validateUser(user: User) {
+    if (!Object.keys(user).length) {
+        throw new Error('missing inputs');
+    }
+    if (!user.email) {
+        throw new Error('missing email');
+    }
+    if (!user.name) {
+        throw new Error('missing name');
+    }
+    return user;
+}
+
 export const users = Router();
 
+// this middleware will run before any route in this router
 users.use(auth);
 
 // fetch all users
@@ -24,11 +38,10 @@ users.get('/:id?', (req: Request, res: Response) => {
 })
 
 export function saveUser(req: Request, res: Response) {
-    const user = req.body;
-    if (!user.name || !user.email) {
-        res.status(400).send({message: 'the input is invalid'});
-    } else {
-        res.send(user);
+    try {
+        res.send(validateUser(req.body as unknown as User));
+    } catch (e) {
+        res.status(400).send({message: e.message});
     }
 }
 
@@ -48,8 +61,7 @@ users.put('/', bodyParser.json(), (req: Request, res: Response) => {
 
 // remove a user
 users.delete('/:id', (req: Request, res: Response) => {
-    // todo replace xxx with user id
-    res.send({message: `user xxx deleted`});
+    res.send({message: `user ${req.params.id} deleted`});
 });
 
 
