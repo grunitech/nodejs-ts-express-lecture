@@ -5,7 +5,8 @@
     "moduleResolution": "node",
     "allowSyntheticDefaultImports": true,
     "esModuleInterop": true,
-    "target": "ES2019"
+    "target": "ES2019",
+    "lib": ["dom"]
   },
   "exclude": [
   ]
