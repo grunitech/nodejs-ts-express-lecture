@@ -54,6 +54,10 @@ export function saveUser(req: Request, res: Response) {
 }
 
 // save a new user
+// todo 1. read user from request
+// todo 2. validate user
+// todo 3. keep user in database
+// todo 4. return the new user id
 users.post('/', bodyParser.json(), saveUser);
 
 // update a user
