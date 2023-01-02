@@ -8,7 +8,8 @@
     "build": "tsc",
     "start": "echo 'KLUM'",
     "test": "mocha -r ts-node/register src/**/*.test.ts",
-    "test:jest": "jest src/foo.spec.ts"
+    "test:jest": "jest src/foo.spec.ts",
+    "read-users": "ts-node src/users/users.ts"
   },
   "repository": {
     "type": "git",
