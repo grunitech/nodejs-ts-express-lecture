@@ -4,8 +4,11 @@ import auth from '../middlewares/auth';
 import client from '../db';
 
 export interface User {
+    id?: number;
     email: string;
-    name: string;
+    fname: string;
+    lname: string;
+    password: string;
 }
 
 function validateUser(user: User) {
