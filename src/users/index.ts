@@ -40,16 +40,22 @@ users.get('/:id', (req: Request, res: Response) => {
 
 
 // save a new user
-users.post('/', bodyParser.json(), (req: Request, res: Response) => {
+users.post('/', bodyParser.json(), async (req: Request, res: Response) => {
     try {
+        // validation and spread the user into its parts
         const {email, password, lname, fname} = validateUser(req.body);
+
+        // the query to insert 1 record
         const SQL = `INSERT INTO users (email, password, lname, fname) VALUES ($1, $2, $3, $4) RETURNING id`;
-        client
-            .query(SQL, [email, password, lname, fname])
-            .then(results => {
-                const id = results.rows[0].id;
-                res.send({id});
-            });
+
+        // running the query with params
+        const results = await client.query(SQL, [email, password, lname, fname]);
+
+        // taking id from first (and only) results
+        const id = results.rows[0].id;
+
+        // return the id to the user
+        res.send({id});
     } catch (e) {
         clientError(res, e.message);
     }
