@@ -1,6 +1,3 @@
-// import isEmail from 'validator/es/lib/isEmail';
-// import isLength from 'validator/es/lib/isLength';
-// import isAlpha from 'validator/es/lib/isAlpha';
 import validator from 'validator';
 
 export interface User {
