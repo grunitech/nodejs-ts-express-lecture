@@ -9,7 +9,8 @@
     "start": "echo 'KLUM'",
     "test": "mocha -r ts-node/register src/**/*.test.ts",
     "test:jest": "jest src/foo.spec.ts",
-    "read-users": "ts-node src/users/users.ts"
+    "read-users": "ts-node src/demos/users.ts",
+    "show-env": "ts-node src/demos/env.ts"
   },
   "repository": {
     "type": "git",

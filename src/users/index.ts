@@ -1,6 +1,7 @@
 import { Router, Request, Response } from 'express';
 import bodyParser from 'body-parser';
 import auth from '../middlewares/auth';
+import client from '../db';
 
 export interface User {
     email: string;
@@ -23,17 +24,23 @@ function validateUser(user: User) {
 export const users = Router();
 
 // this middleware will run before any route in this router
-users.use(auth);
+// users.use(auth);
 
 // fetch all users
 // fetch specific user
 users.get('/:id?', (req: Request, res: Response) => {
     const id = req.params.id;
     if (id) {
-        const user: User = {name: 'Server User', email: 'test@test.org'};
-        res.send(user);
+        const SQL = 'SELECT * FROM users WHERE id=$1';
+        client
+            .query(SQL, [id])
+            .then(results => results.rows[0])
+            .then(user => res.send(user))
     } else {
-        res.send([]);
+        client
+            .query('SELECT * FROM users')
+            .then(results => results.rows)
+            .then(users => res.send(users));
     }
 })
 
