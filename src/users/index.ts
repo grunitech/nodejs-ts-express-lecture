@@ -27,21 +27,22 @@ export const users = Router();
 // users.use(auth);
 
 // fetch all users
+users.get('/', (req: Request, res: Response) => {
+    // todo what happened if there are 2 billion records in the database?
+    client
+        .query('SELECT * FROM users')
+        .then(results => results.rows)
+        .then(users => res.send(users));
+});
+
 // fetch specific user
-users.get('/:id?', (req: Request, res: Response) => {
+users.get('/:id', (req: Request, res: Response) => {
     const id = req.params.id;
-    if (id) {
-        const SQL = 'SELECT * FROM users WHERE id=$1';
-        client
-            .query(SQL, [id])
-            .then(results => results.rows[0])
-            .then(user => res.send(user))
-    } else {
-        client
-            .query('SELECT * FROM users')
-            .then(results => results.rows)
-            .then(users => res.send(users));
-    }
+    const SQL = 'SELECT * FROM users WHERE id=$1';
+    client
+        .query(SQL, [id])
+        .then(results => results.rows[0])
+        .then(user => res.send(user));
 })
 
 export function saveUser(req: Request, res: Response) {
