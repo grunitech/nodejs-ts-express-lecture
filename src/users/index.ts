@@ -12,15 +12,15 @@ export interface User {
 }
 
 function validateUser(user: User) {
-    if (!Object.keys(user).length) {
-        throw new Error('missing inputs');
-    }
-    if (!user.email) {
-        throw new Error('missing email');
-    }
-    if (!user.name) {
-        throw new Error('missing name');
-    }
+    // if (!Object.keys(user).length) {
+    //     throw new Error('missing inputs');
+    // }
+    // if (!user.email) {
+    //     throw new Error('missing email');
+    // }
+    // if (!user.name) {
+    //     throw new Error('missing name');
+    // }
     return user;
 }
 
