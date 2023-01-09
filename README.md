@@ -23,3 +23,9 @@
 ### Entry Point
 
 `index.ts` is our application entry point. Any async operation should be done at this point.
+
+`app.ts` the express application (top level router).
+
+`config` application configuration module.
+
+`db` postgres connection module
