@@ -35,6 +35,7 @@ describe('UserService', () => {
     });
 
     describe('UserService::one()', () => {
+
         it('should return user', async () => {
             client.query = () => Promise.resolve({rows: [{id: 'test'}, {id: 'test2'}]});
             const user = await users.one(1);
@@ -52,26 +53,12 @@ describe('UserService', () => {
         });
     });
 
+    describe('UserService::save()', () => {
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+        it('should save a user', async () => {
+            client.query = () => Promise.resolve({rows: [{id: 'test'}]});
+            const user = await users.save({} as any);
+            expect(user.id).to.equals('test');
+        });
+    });
 });

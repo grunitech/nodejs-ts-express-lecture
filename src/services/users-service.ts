@@ -41,8 +41,8 @@ export class UserService {
         // if (user.rows.length) {
         //     throw new Error('unable to add duplicate email');
         // }
-        const rows = await this.client.query(INSERT_ONE, [email, fname, lname, password]);
-        return rows;
+        const result = await this.client.query(INSERT_ONE, [email, fname, lname, password]);
+        return result.rows[0];
     }
 }
 
