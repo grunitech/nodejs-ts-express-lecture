@@ -4,10 +4,10 @@
   "description": "Example project with ts and express",
   "main": "index.js",
   "scripts": {
+    "test": "mocha -r ts-node/register src/**/*.test.ts",
     "dev": "tsnd --respawn src/index.ts",
     "build": "tsc",
     "start": "echo 'KLUM'",
-    "test": "mocha -r ts-node/register src/**/*.test.ts",
     "test:jest": "jest src/foo.spec.ts",
     "read-users": "ts-node src/demos/users.ts",
     "show-env": "ts-node src/demos/env.ts"

@@ -6,7 +6,7 @@
     "allowSyntheticDefaultImports": true,
     "esModuleInterop": true,
     "target": "ES2019",
-    "lib": ["dom"]
+    "lib": ["dom", "es2020"]
   },
   "exclude": [
   ]
