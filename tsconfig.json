@@ -9,5 +9,6 @@
     "lib": ["dom", "es2020"]
   },
   "exclude": [
+    "src.bu/**"
   ]
 }

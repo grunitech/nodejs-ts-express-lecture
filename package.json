@@ -7,7 +7,7 @@
     "test": "mocha -r ts-node/register src/**/*.test.ts",
     "dev": "tsnd --respawn src/index.ts",
     "build": "tsc",
-    "start": "echo 'KLUM'",
+    "start": "npm run build && node dist/index.js",
     "test:jest": "jest src/foo.spec.ts",
     "read-users": "ts-node src/demos/users.ts",
     "show-env": "ts-node src/demos/env.ts"
