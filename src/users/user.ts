@@ -32,3 +32,11 @@ export function validateUser(payload: unknown): User {
     }
     return payload as User;
 }
+
+export function validateFullUser(payload: unknown) {
+    const user = validateUser(payload);
+    if (!validator.isNumeric(`${user.id}`)) {
+        throw new Error('missing user ud');
+    }
+    return user;
+}

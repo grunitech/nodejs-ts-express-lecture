@@ -11,6 +11,7 @@ export async function connect({user, host, database, password}) {
     client = c;
 }
 
+
 export default function db(): Client {
     if (!client) {
         throw new Error('you have to connect before calling this function');

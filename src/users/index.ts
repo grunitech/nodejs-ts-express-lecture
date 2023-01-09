@@ -1,41 +1,40 @@
 import { Request, Response, Router } from 'express';
 import bodyParser from 'body-parser';
-import { validateUser } from './user';
-import usersService from '../services/users-service';
+import { validateFullUser, validateUser } from './user';
+import getUserService from '../services/users-service';
 
-// todo input validation
-// todo error handling
-
-const service = usersService();
 
 async function getAllUsers(req: Request, res: Response) {
-    const items = await service.all();
-    res.send(items);
+    const users = await getUserService().all();
+    res.send(users);
 }
 
 async function getUserById(req: Request, res: Response) {
     // read if from URL (param)
-    // todo validation
+    // todo validation (id is numeric)
     const id = req.params.id;
-    const item = await service.one(id);
-    res.send(item);
+    const user = await getUserService().one(id);
+    res.send(user);
 }
 
 async function createUser(req: Request, res: Response) {
-    validateUser(req.body);
-    const results = await service.save(req.body);
-    return results;
+    const user = validateUser(req.body);
+    const savedUser = await getUserService().save(user);
+    res.send(savedUser);
 }
 
 async function updateUser(req: Request, res: Response) {
-    validateUser(req.body);
-    const results = await service.save(req.body);
-    return results;
+    const user = validateFullUser(req.body);
+    const updatedUser = await getUserService().update(user);
+    res.send(updatedUser);
 }
 
-function clientError(res: Response, message: string, code = 400) {
-    res.status(code).send({message});
+async function removeUser(req: Request, res: Response) {
+    const id = req.params.id;
+    await getUserService().remove(id);
+    res.send({id});
 }
+
 
 // CRUD feature (Create, Read, Update, Delete)
 const users = Router();
@@ -44,7 +43,7 @@ users.get('/', getAllUsers);
 users.get('/:id', getUserById)
 users.post('/', bodyParser.json(), createUser);
 users.put('/', bodyParser.json(), updateUser);
-users.delete('/:id', () => {});
+users.delete('/:id', removeUser);
 
 export default users;
 

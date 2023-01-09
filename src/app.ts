@@ -12,7 +12,7 @@ const app = express();
 app.use(cors());
 
 
-// app.use('/user', );
+app.use('/user', users);
 
 export default app;
 

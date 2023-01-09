@@ -12,9 +12,12 @@ export interface User {
 const SELECT_ALL = 'SELECT * FROM users';
 const SELECT_BY_ID = 'SELECT * FROM users WHERE id=$1 LIMIT 1';
 const INSERT_ONE = 'INSERT INTO users (email, fname, lname, password) VALUES ($1, $2, $3, $4) RETURNING *';
+const UPDATE_ONE = 'UPDATE users SET email=$2, fname=$3, lname=$4, password=$5 WHERE id=$1 RETURNING *';
+const REMOVE_ONE = 'DELETE FROM users WHERE id=$1'
 
 // What about testing services like that?!
 
+// this service let us access the "users" table in the database
 export class UserService {
     constructor(public readonly client: Client) {
     }
@@ -44,19 +47,26 @@ export class UserService {
         const result = await this.client.query(INSERT_ONE, [email, fname, lname, password]);
         return result.rows[0];
     }
+
+    // todo missing tests
+    async update({id, email, fname, lname, password}: User) {
+        const results = await this.client.query(UPDATE_ONE, [id, email, fname, lname, password]);
+        return results.rows[0];
+    }
+
+    // todo missing tests
+    async remove(id: number | string) {
+       await this.client.query(REMOVE_ONE, [id]);
+       return id;
+    }
 }
 
 
+let userService: UserService;
 
-
-
-
-
-
-
-
-
-
-export default function factory() {
-    return new UserService(db());
+export default function getUserService() {
+    if (!userService) {
+        userService = new UserService(db());
+    }
+    return userService;
 }
