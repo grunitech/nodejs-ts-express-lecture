@@ -2,6 +2,7 @@ import config from './config';
 import { connect } from './db';
 import app from './app';
 
+// this module is not testable!
 // setup function for our express application
 async function main() {
     // lets read our application configuration

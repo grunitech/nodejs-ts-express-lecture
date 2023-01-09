@@ -2,6 +2,7 @@ import { Client } from 'pg';
 
 let client: Client;
 
+// this function is not testable!
 export async function connect({user, host, database, password}) {
     const c = new Client({user, host, database, password});
     console.log('pg client created')

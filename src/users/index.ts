@@ -1,13 +1,7 @@
 import { Request, Response, Router } from 'express';
 import bodyParser from 'body-parser';
 import { validateUser } from './user';
-import usersService, { UserService } from '../services/user';
-
-/**
- * An example for creating an HTTP feature (express router) with
- * dependencies.
- *
- */
+import usersService from '../services/users-service';
 
 // todo input validation
 // todo error handling
@@ -43,16 +37,16 @@ function clientError(res: Response, message: string, code = 400) {
     res.status(code).send({message});
 }
 
+// CRUD feature (Create, Read, Update, Delete)
 const users = Router();
 
 users.get('/', getAllUsers);
 users.get('/:id', getUserById)
 users.post('/', bodyParser.json(), createUser);
 users.put('/', bodyParser.json(), updateUser);
+users.delete('/:id', () => {});
 
-defalt
-export
-users;
+export default users;
 
 
 
