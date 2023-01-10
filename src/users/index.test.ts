@@ -18,21 +18,33 @@ import request from 'supertest';
 // Integration test (integration of some modules instead of testing single unit)
 describe('user feature', () => {
 
-    it('should return all users', () => {
-        // return Promise of "PG Result object"
-        MockClient.query = () => Promise.resolve({
-            rows: [
-                {id: 1, password: 'A'},
-                {id: 2, password: 'C'}
-            ]
+    it("should return all users", () => {
+      // return Promise of "PG Result object"
+      MockClient.query = () =>
+        Promise.resolve({
+          rows: [
+            { id: 1, password: "A" },
+            { id: 2, password: "C" },
+          ],
         });
-        return request(app)
-            .get('/user')
-            .expect(200)
-            .expect([
-                {id: 1},
-                {id: 2}
-            ]);
+      return request(app)
+        .get("/user")
+        .expect(200)
+        .expect([{ id: 1 }, { id: 2 }]);
+    });
+
+    it("should return a user", () => {
+      // return Promise of "PG Result object"
+      MockClient.query = () =>
+        Promise.resolve({
+          rows: [
+            { id: 1, password: "A" },
+          ],
+        });
+      return request(app)
+        .get("/user/:id")
+        .expect(200)
+        .expect({ id: 1 });
     });
 
 });
