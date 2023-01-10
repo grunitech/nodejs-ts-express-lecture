@@ -19,6 +19,7 @@ import request from 'supertest';
 describe('user feature', () => {
 
     it('should return all users', () => {
+        // return Promise of "PG Result object"
         MockClient.query = () => Promise.resolve({
             rows: [
                 {id: 'testA', password: 'A'},

@@ -22,7 +22,7 @@ async function getUserById(req: Request, res: Response) {
     // todo validation (id is numeric)
     const id = req.params.id;
     const user = await getUserService().one(id);
-    res.send(user);
+    res.send(cleanUser(user));
 }
 
 async function createUser(req: Request, res: Response) {
