@@ -1,4 +1,4 @@
-import { NextFunction, Request, Response, Router } from 'express';
+import { Request, Response, Router } from 'express';
 import bodyParser from 'body-parser';
 import { User, validateFullUser, validateUser } from './user';
 import getUserService from '../services/users-service';
@@ -18,8 +18,6 @@ async function getAllUsers(req: Request, res: Response) {
 }
 
 async function getUserById(req: Request, res: Response) {
-    // read if from URL (param)
-    // todo validation (id is numeric)
     const id = req.params.id;
     const user = await getUserService().one(id);
     res.send(cleanUser(user));
