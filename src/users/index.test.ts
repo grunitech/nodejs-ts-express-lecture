@@ -13,6 +13,7 @@ ImportMock.mockFunction(dbModule, 'default', MockClient);
 
 import app from '../app';
 import request from 'supertest';
+import { User } from './user';
 
 // E2E (end to end) testing
 // Integration test (integration of some modules instead of testing single unit)
@@ -37,10 +38,13 @@ describe('user feature', () => {
                 { id: 2 }
             ]);
     });
-    it('should return one user', () => {
-        MockClient.query = () => Promise.resolve({
-            rows: [{ id: 1, password: 'A' }]
-        });
+
+    it('should return user by user Id', () => {
+        // return Promise of "PG Result object"
+        MockClient.query = () => Promise.resolve(
+            { rows: [{ id: 1, password: 'A' }] }
+        );
+
         return request(app)
             .get('/user/1')
             .expect(200)
@@ -49,18 +53,19 @@ describe('user feature', () => {
             );
     });
 
-    it('should return user by user Id', () => {
-        // return Promise of "PG Result object"
+
+    it('should return id of deleted user', () => {
         MockClient.query = () => Promise.resolve(
-            {rows:[{id: 1, password: 'A'}]}
+            { rows: [{ id: 1 }] }
         );
 
         return request(app)
-            .get('/user/1')
+            .delete('/user/1')
             .expect(200)
             .expect(
-                {id: 1}
-            );
+                { id: '1' }
+            )
+
     });
 
 });
