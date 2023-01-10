@@ -74,6 +74,7 @@ describe('user feature', () => {
             .send({})
             .expect(400)
             .then(res => {
+                // expect(res.status).to.equals(400);
                 expect(res.body).to.have.property('message');
             });
     });
