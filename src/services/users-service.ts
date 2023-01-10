@@ -40,10 +40,10 @@ export class UserService {
         // this asserts make sure there is no another user with the same email
         // we comment this section out since we defined the "email" field in the database as unique
         //
-        // const user = await this.client.query('select id from users where email=$1', [email]);
-        // if (user.rows.length) {
-        //     throw new Error('unable to add duplicate email');
-        // }
+        const user = await this.client.query('select id from users where email=$1', [email]);
+        if (user.rows.length) {
+            throw new Error('unable to add duplicate email');
+        }
         const result = await this.client.query(INSERT_ONE, [email, fname, lname, password]);
         return result.rows[0];
     }

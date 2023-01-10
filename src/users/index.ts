@@ -1,12 +1,20 @@
-import { Request, Response, Router } from 'express';
+import { NextFunction, Request, Response, Router } from 'express';
 import bodyParser from 'body-parser';
-import { validateFullUser, validateUser } from './user';
+import { User, validateFullUser, validateUser } from './user';
 import getUserService from '../services/users-service';
 
+function cleanUser({password, ...user}: User) {
+    return user;
+}
+
+// Example to middleware *AFTER* the end point
+// function cleanUserMiddleware(req: Request, res: Response, next: NextFunction) {
+//
+// }
 
 async function getAllUsers(req: Request, res: Response) {
     const users = await getUserService().all();
-    res.send(users);
+    res.send(users.map(cleanUser));
 }
 
 async function getUserById(req: Request, res: Response) {
@@ -39,11 +47,17 @@ async function removeUser(req: Request, res: Response) {
 // CRUD feature (Create, Read, Update, Delete)
 const users = Router();
 
+
+
 users.get('/', getAllUsers);
-users.get('/:id', getUserById)
+users.get('/:id', getUserById);
 users.post('/', bodyParser.json(), createUser);
 users.put('/', bodyParser.json(), updateUser);
 users.delete('/:id', removeUser);
+
+// localhost/user
+// users.use(cleanUserMiddleware);
+
 
 export default users;
 
