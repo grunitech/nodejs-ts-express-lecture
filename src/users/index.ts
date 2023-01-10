@@ -1,4 +1,4 @@
-import { NextFunction, Request, Response, Router } from 'express';
+import { Request, Response, Router } from 'express';
 import bodyParser from 'body-parser';
 import { User, validateFullUser, validateUser } from './user';
 import getUserService from '../services/users-service';
