@@ -26,6 +26,10 @@ describe('user feature', () => {
                 {id: 2, password: 'C'}
             ]
         });
+        // routing to /user
+        // then make sure we got 200 (HTTP OK)
+        // then make sure we got the body we expected,
+        // notice the results missing the "password" field
         return request(app)
             .get('/user')
             .expect(200)
