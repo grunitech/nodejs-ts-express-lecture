@@ -10,6 +10,10 @@
 * `ts-node` a tool to run TypeScript in NodeJS.
 * `ts-node-dev` a tool to watch and run typescript apps.
 * `express` web framework
+* `mocha` tests runner
+* `chai` asserts library
+* `supertest` express route assert library
+* 
 
 ## Configuration
 
