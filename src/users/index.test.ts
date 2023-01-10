@@ -22,16 +22,16 @@ describe('user feature', () => {
         // return Promise of "PG Result object"
         MockClient.query = () => Promise.resolve({
             rows: [
-                {id: 'testA', password: 'A'},
-                {id: 'testB', password: 'C'}
+                {id: 1, password: 'A'},
+                {id: 2, password: 'C'}
             ]
         });
         return request(app)
             .get('/user')
             .expect(200)
             .expect([
-                {id: 'testA'},
-                {id: 'testB'}
+                {id: 1},
+                {id: 2}
             ]);
     });
 

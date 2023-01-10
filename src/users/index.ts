@@ -48,7 +48,6 @@ async function removeUser(req: Request, res: Response) {
 const users = Router();
 
 
-
 users.get('/', getAllUsers);
 users.get('/:id', getUserById);
 users.post('/', bodyParser.json(), createUser);
