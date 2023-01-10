@@ -52,5 +52,17 @@ describe('user feature', () => {
                 {id: 1}
             );
     });
+    it ('should delete user by its id and send back the id', () => {
+MockClient.query = () => Promise.resolve(
+            {rows: [{id : '1'}]}
+        );
+
+        return request(app)
+            .delete('/user/1')
+            .expect(200)
+            .expect(
+                {id: '1'}
+            );
+    });
 
 });
