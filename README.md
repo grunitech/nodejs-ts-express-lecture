@@ -13,7 +13,7 @@
 * `mocha` tests runner
 * `chai` asserts library
 * `supertest` express route assert library
-* 
+* `ts-mock-imports` mocking utility
 
 ## Configuration
 
