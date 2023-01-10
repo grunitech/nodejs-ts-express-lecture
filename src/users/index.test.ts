@@ -38,7 +38,7 @@ describe('user feature', () => {
     it('should return user by user Id', () => {
         // return Promise of "PG Result object"
         MockClient.query = () => Promise.resolve(
-            {id: 1, password: 'A'}
+            {rows:[{id: 1, password: 'A'}]}
         );
 
         return request(app)
