@@ -19,7 +19,6 @@ async function getAllUsers(req: Request, res: Response) {
 
 async function getUserById(req: Request, res: Response) {
     // read if from URL (param)
-    // todo validation (id is numeric)
     const id = req.params.id;
     const user = await getUserService().one(id);
     res.send(cleanUser(user));
