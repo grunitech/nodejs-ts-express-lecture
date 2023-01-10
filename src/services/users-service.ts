@@ -35,7 +35,7 @@ export class UserService {
         return result.rows[0];
     }
 
-    async save({email, fname, lname, password}: User) {
+    async save({ email, fname, lname, password }: User) {
         // NOTE:
         // this asserts make sure there is no another user with the same email
         // we comment this section out since we defined the "email" field in the database as unique
@@ -49,15 +49,15 @@ export class UserService {
     }
 
     // todo missing tests
-    async update({id, email, fname, lname, password}: User) {
+    async update({ id, email, fname, lname, password }: User) {
         const results = await this.client.query(UPDATE_ONE, [id, email, fname, lname, password]);
         return results.rows[0];
     }
 
     // todo missing tests
     async remove(id: number | string) {
-       await this.client.query(REMOVE_ONE, [id]);
-       return id;
+        await this.client.query(REMOVE_ONE, [id]);
+        return id;
     }
 }
 

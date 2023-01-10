@@ -5,6 +5,7 @@
   "main": "index.js",
   "scripts": {
     "test": "mocha -r ts-node/register src/**/*.test.ts",
+    "test-r": "mocha -r ts-node/register src/users/index.test.ts",
     "dev": "tsnd --respawn src/index.ts",
     "build": "tsc",
     "start": "npm run build && node dist/index.js",
