@@ -35,4 +35,19 @@ describe('user feature', () => {
             ]);
     });
 
+     it('should return user', () => {
+        // return Promise of "PG Result object"
+        MockClient.query = () => Promise.resolve({
+            rows: [
+                {id: 1, password: 'A'},
+                {id: 2, password: 'C'}
+            ]
+        });
+        return request(app)
+            .get('/user/1')
+            .expect(200)
+            .expect(
+                {id: 1}
+            );
+    });
 });
