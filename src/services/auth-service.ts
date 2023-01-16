@@ -1,4 +1,15 @@
 import bcrypt from 'bcrypt';
+import jwt from 'jsonwebtoken';
+
+const MY_JWT_KEY = process.env.JWT_TOKEN || 'shhhh dont tell anybody';
+
+export function createJWT(data: object): string {
+    return jwt.sign(data, MY_JWT_KEY);
+}
+
+export function verifyJWT(token: string) {
+    return jwt.verify(token, MY_JWT_KEY);
+}
 
 /**
  * One way encrypt (signing) -> takes plain password and

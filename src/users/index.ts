@@ -3,6 +3,7 @@ import bodyParser from 'body-parser';
 import { User, validateFullUser, validateUser } from './user';
 import getUserService from '../services/users-service';
 import { handleError } from '../utils/errors';
+import authMiddleware from '../auth/auth-middleware';
 
 function cleanUser({password, ...user}: User) {
     return user;
@@ -14,6 +15,7 @@ function cleanUser({password, ...user}: User) {
 // }
 
 async function getAllUsers(req: Request, res: Response) {
+
     const users = await getUserService().all();
     res.send(users.map(cleanUser));
 }
@@ -47,6 +49,7 @@ async function updateUser(req: Request, res: Response) {
 
 async function removeUser(req: Request, res: Response) {
     const id = req.params.id;
+    console.log(`user email: ${res.locals.email} deleted user id: ${id}`);
     await getUserService().remove(id);
     res.send({id});
 }
@@ -55,6 +58,7 @@ async function removeUser(req: Request, res: Response) {
 // CRUD feature (Create, Read, Update, Delete)
 const users = Router();
 
+users.use(authMiddleware);
 
 users.get('/', getAllUsers);
 users.get('/:id', getUserById);

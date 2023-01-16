@@ -1,18 +1,20 @@
 import getUserService from '../services/users-service';
-import { verify } from '../services/auth-service';
+import { createJWT, sign, verify } from '../services/auth-service';
 
 export interface Credentials {
     email: string;
     password: string;
 }
 
+// the user get a token contain data
 
-export async function login({email, password}: Credentials): Promise<boolean> {
+export async function login({email, password}: Credentials): Promise<string | null> {
     try {
         const user = await getUserService().byEmail(email);
-        return verify(user.password, password);
+        const verified = await verify(user.password, password);
+        return verified ? createJWT({email: user.email, fname: user.fname}) : null;
     } catch (e) {
-        return false;
+        return null;
     }
 }
 
