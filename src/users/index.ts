@@ -9,11 +9,6 @@ function cleanUser({password, ...user}: User) {
     return user;
 }
 
-// Example to middleware *AFTER* the end point
-// function cleanUserMiddleware(req: Request, res: Response, next: NextFunction) {
-//
-// }
-
 async function getAllUsers(req: Request, res: Response) {
 
     const users = await getUserService().all();
@@ -65,9 +60,6 @@ users.get('/:id', getUserById);
 users.post('/', bodyParser.json(), createUser);
 users.put('/', bodyParser.json(), updateUser);
 users.delete('/:id', removeUser);
-
-// localhost/user
-// users.use(cleanUserMiddleware);
 
 
 export default users;

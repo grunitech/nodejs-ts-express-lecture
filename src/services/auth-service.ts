@@ -1,5 +1,5 @@
 import bcrypt from 'bcrypt';
-import jwt from 'jsonwebtoken';
+import jwt, { JwtPayload } from 'jsonwebtoken';
 
 const MY_JWT_KEY = process.env.JWT_TOKEN || 'shhhh dont tell anybody';
 
@@ -7,8 +7,8 @@ export function createJWT(data: object): string {
     return jwt.sign(data, MY_JWT_KEY);
 }
 
-export function verifyJWT(token: string) {
-    return jwt.verify(token, MY_JWT_KEY);
+export function verifyJWT<T = JwtPayload>(token: string): T {
+    return jwt.verify(token, MY_JWT_KEY) as T;
 }
 
 /**

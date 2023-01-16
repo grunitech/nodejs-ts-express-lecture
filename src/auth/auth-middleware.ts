@@ -8,8 +8,8 @@ export default function authMiddleware(req: Request, res: Response, next: NextFu
     }
 
     try {
-        const payload = verifyJWT(token) as {email: string};
-        res.locals.email = payload.email;
+        const {email} = verifyJWT<{email: string}>(token);
+        res.locals.email = email;
         next();
 
     } catch (e) {
