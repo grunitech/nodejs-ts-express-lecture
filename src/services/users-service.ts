@@ -1,5 +1,6 @@
 import type { Client } from 'pg';
 import db from '../db';
+import { sign } from './auth-service';
 
 export interface User {
     id?: number;
@@ -11,6 +12,7 @@ export interface User {
 
 const SELECT_ALL = 'SELECT * FROM users';
 const SELECT_BY_ID = 'SELECT * FROM users WHERE id=$1 LIMIT 1';
+const SELECT_BY_EMAIL = 'SELECT * FROM users WHERE email=$1 LIMIT 1';
 const INSERT_ONE = 'INSERT INTO users (email, fname, lname, password) VALUES ($1, $2, $3, $4) RETURNING *';
 const UPDATE_ONE = 'UPDATE users SET email=$2, fname=$3, lname=$4, password=$5 WHERE id=$1 RETURNING *';
 const REMOVE_ONE = 'DELETE FROM users WHERE id=$1'
@@ -25,6 +27,15 @@ export class UserService {
     async all(): Promise<User[]> {
         const result = await this.client.query(SELECT_ALL);
         return result.rows;
+    }
+
+    // todo missing test
+    async byEmail(email: string): Promise<User> {
+        const result = await this.client.query(SELECT_BY_EMAIL, [email]);
+        if (result.rows.length === 0) {
+            throw new Error('unable to find this user');
+        }
+        return result.rows[0];
     }
 
     async one(id: number | string): Promise<User> {
@@ -44,13 +55,16 @@ export class UserService {
         // if (user.rows.length) {
         //     throw new Error('unable to add duplicate email');
         // }
-        const result = await this.client.query(INSERT_ONE, [email, fname, lname, password]);
+        const encrypted = await sign(password);
+        const result = await this.client.query(INSERT_ONE, [email, fname, lname, encrypted]);
         return result.rows[0];
     }
 
     // todo missing tests
+    // todo what about partial save
     async update({id, email, fname, lname, password}: User) {
-        const results = await this.client.query(UPDATE_ONE, [id, email, fname, lname, password]);
+        const encrypted = await sign(password);
+        const results = await this.client.query(UPDATE_ONE, [id, email, fname, lname, encrypted]);
         return results.rows[0];
     }
 
