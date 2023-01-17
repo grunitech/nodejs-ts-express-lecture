@@ -1,8 +1,7 @@
 import express from 'express';
 import cors from 'cors';
 import users from './users';
-import { login } from './auth/login';
-import bodyParser from 'body-parser';
+import auth from './auth';
 
 // this module is not testable!
 
@@ -14,11 +13,7 @@ const app = express();
 app.use(cors());
 
 
-app.post('/login', bodyParser.json(), async (req, res) => {
-    const {email, password} = req.body;
-    res.send({token: await login({email, password})});
-});
-
+app.use(auth);
 app.use('/user', users);
 
 export default app;

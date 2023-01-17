@@ -1,5 +1,6 @@
 import getUserService from '../services/users-service';
-import { createJWT, sign, verify } from '../services/auth-service';
+import { verify } from '../services/auth-service';
+import { OAuth2Client } from 'google-auth-library';
 
 export interface Credentials {
     email: string;
@@ -8,14 +9,19 @@ export interface Credentials {
 
 // the user get a token contain data
 
-export async function login({email, password}: Credentials): Promise<string | null> {
-    try {
-        const user = await getUserService().byEmail(email);
-        const verified = await verify(user.password, password);
-        return verified ? createJWT({email: user.email, fname: user.fname}) : null;
-    } catch (e) {
-        return null;
-    }
+export async function login({email, password}: Credentials): Promise<boolean> {
+    const user = await getUserService().byEmail(email);
+    const verified = await verify(user.password, password);
+    return verified;
+}
+
+
+const google_client_id = '100350147102-n01o57le5j3jq8pd981ne6uefvot2343.apps.googleusercontent.com';
+
+
+export async function googleLogin(idToken: string) {
+    const auth = new OAuth2Client(google_client_id);
+    return auth.verifyIdToken({idToken}) as Promise<any>;
 }
 
 // example "one-liner" of the above "login" function
