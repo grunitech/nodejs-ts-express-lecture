@@ -1,7 +1,6 @@
 import { Request, Response, Router } from 'express';
 import bodyParser from 'body-parser';
-import { googleLogin, login, loginGoogle } from './login';
-import { OAuth2Client } from 'google-auth-library';
+import { googleLogin, login } from './login';
 import { createJWT } from '../services/auth-service';
 
 const router = Router();
