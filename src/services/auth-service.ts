@@ -4,11 +4,11 @@ import jwt, { JwtPayload } from 'jsonwebtoken';
 const MY_JWT_KEY = process.env.JWT_TOKEN || 'shhhh dont tell anybody';
 
 export function createJWT(data: object): string {
-    return jwt.sign(data, MY_JWT_KEY);
+  return jwt.sign(data, MY_JWT_KEY);
 }
 
 export function verifyJWT<T = JwtPayload>(token: string): T {
-    return jwt.verify(token, MY_JWT_KEY) as T;
+  return jwt.verify(token, MY_JWT_KEY) as T;
 }
 
 /**
@@ -18,7 +18,7 @@ export function verifyJWT<T = JwtPayload>(token: string): T {
  * @param password
  */
 export function sign(password: string): Promise<string> {
-    return bcrypt.hash(password, 10);
+  return bcrypt.hash(password, 10);
 }
 
 /**
@@ -29,5 +29,5 @@ export function sign(password: string): Promise<string> {
  * @param password
  */
 export function verify(encrypted: string, password: string): Promise<boolean> {
-    return bcrypt.compare(password, encrypted);
+  return bcrypt.compare(password, encrypted);
 }

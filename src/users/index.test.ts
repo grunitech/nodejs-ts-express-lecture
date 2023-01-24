@@ -4,9 +4,9 @@ import { ImportMock } from 'ts-mock-imports';
 import * as dbModule from '../db';
 
 // our mock client
-const MockClient: { query: any, imMock: boolean } = {
-    query: null,
-    imMock: true
+const MockClient: { query: any; imMock: boolean } = {
+  query: null,
+  imMock: true,
 };
 
 // the replacement
@@ -20,71 +20,58 @@ import db from '../db';
 // E2E (end to end) testing
 // Integration test (integration of some modules instead of testing single unit)
 describe('user feature', () => {
+  it('should show us something', () => {
+    console.log(db());
+    expect(db()).to.have.property('imMock', true);
+  });
 
-    it('should show us something', () => {
-        console.log(db());
-        expect(db()).to.have.property('imMock', true);
-    });
+  it('should return all users', () => {
+    // return Promise of "PG Result object"
+    MockClient.query = () =>
+      Promise.resolve({
+        rows: [
+          { id: 1, password: 'A' },
+          { id: 2, password: 'C' },
+        ],
+      });
+    // routing to /user
+    // then make sure we got 200 (HTTP OK)
+    // then make sure we got the body we expected,
+    // notice the results missing the "password" field
+    return request(app)
+      .get('/user')
+      .expect(200) // status code
+      .expect('content-type', 'application/json') // header
+      .expect([
+        // body
+        { id: 1 },
+        { id: 2 },
+      ]);
+  });
 
-    it('should return all users', () => {
-        // return Promise of "PG Result object"
-        MockClient.query = () => Promise.resolve({
-            rows: [
-                {id: 1, password: 'A'},
-                {id: 2, password: 'C'}
-            ]
-        });
-        // routing to /user
-        // then make sure we got 200 (HTTP OK)
-        // then make sure we got the body we expected,
-        // notice the results missing the "password" field
-        return request(app)
-            .get('/user')
-            .expect(200)// status code
-            .expect('content-type', 'application/json') // header
-            .expect([ // body
-                {id: 1},
-                {id: 2}
-            ]);
-    });
+  it('should return user by user Id', () => {
+    // return Promise of "PG Result object"
+    MockClient.query = () => Promise.resolve({ rows: [{ id: 1, password: 'A' }] });
 
-    it('should return user by user Id', () => {
-        // return Promise of "PG Result object"
-        MockClient.query = () => Promise.resolve(
-            {rows: [{id: 1, password: 'A'}]}
-        );
+    return request(app).get('/user/1').expect(200).expect({ id: 1 });
+  });
 
-        return request(app)
-            .get('/user/1')
-            .expect(200)
-            .expect(
-                {id: 1}
-            );
-    });
+  it('should delete user by its id and send back the id', () => {
+    MockClient.query = () => Promise.resolve({ rows: [{ id: '1' }] });
 
-    it('should delete user by its id and send back the id', () => {
-        MockClient.query = () => Promise.resolve(
-            {rows: [{id: '1'}]}
-        );
+    return request(app).delete('/user/1').expect(200).expect({ id: '1' });
+  });
 
-        return request(app)
-            .delete('/user/1')
-            .expect(200)
-            .expect(
-                {id: '1'}
-            );
-    });
-
-    it('should fail for creating invalid user', () => {
-        MockClient.query = () => {
-        };
-        return request(app)
-            .post('/user')
-            .send({})
-            .expect(400)
-            .then(res => {
-                // expect(res.status).to.equals(400);
-                expect(res.body).to.have.property('message');
-            });
-    });
+  it('should fail for creating invalid user', () => {
+    // eslint-disable-next-line
+    MockClient.query = () => {};
+    return request(app)
+      .post('/user')
+      .send({})
+      .expect(400)
+      .then((res) => {
+        // expect(res.status).to.equals(400);
+        expect(res.body).to.have.property('message');
+      });
+  });
 });

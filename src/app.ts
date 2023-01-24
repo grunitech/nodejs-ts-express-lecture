@@ -12,10 +12,7 @@ const app = express();
 // routes to support HTTP calls from different domains
 app.use(cors());
 
-
 app.use(auth);
 app.use('/user', users);
 
 export default app;
-
-
